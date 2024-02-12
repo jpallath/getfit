@@ -23,8 +23,8 @@ const NavItems = () => {
             href={link.href}
             className={`${
               pathname === link.href
-                ? "text-zinc-900 bg-amber-100 dark:bg-amber-400 grow transition-all text-center py-4"
-                : "text-white bg-fuchsia-300 dark:bg-fuchsia-950 grow transition-all text-center py-4"
+                ? "text-zinc-900 bg-amber-100 dark:bg-amber-400 grow transition-all text-center py-4 transition-all"
+                : "text-white bg-fuchsia-300 dark:bg-fuchsia-950 grow transition-all text-center py-4 transition-all"
             }
             `}
           >
@@ -38,7 +38,7 @@ const NavItems = () => {
 
 export const Navigation = () => {
   return (
-    <nav className="absolute w-full flex justify-between items-center px-8 bottom-0 bg-fuchsia-300 dark:bg-fuchsia-950 rounded-t-xl z-10">
+    <nav className="absolute w-full flex justify-between items-center px-8 bottom-0 bg-fuchsia-300 dark:bg-fuchsia-950 rounded-t-xl z-10 transition-all">
       <NavItems />
     </nav>
   );
