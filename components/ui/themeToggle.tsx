@@ -3,14 +3,7 @@
 import * as React from "react";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
-
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export function ThemeToggle() {
   const { setTheme, theme } = useTheme();
@@ -31,7 +24,10 @@ export function ThemeToggle() {
 
   return (
     <div className="absolute bottom-20 right-4">
-      <Button onClick={updateTheme}>
+      <Button
+        onClick={updateTheme}
+        className="bg-white text-black dark:bg-black dark:text-white"
+      >
         <ThemeIcon theme={theme} />
       </Button>
     </div>
