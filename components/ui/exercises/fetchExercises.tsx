@@ -7,7 +7,7 @@ export type ExerciseProps = {
 };
 
 export type Exercise = {
-  id: number;
+  id: string;
   description: string;
   name: string;
   video: string;

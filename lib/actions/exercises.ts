@@ -13,8 +13,6 @@ const ExerciseSchema = z.object({
   image: z.string(),
 });
 
-
-
 const CreateExercise = ExerciseSchema.omit({
   id: true,
   createdAt: true,
@@ -42,39 +40,4 @@ export async function createExercise(formData: FormData) {
   } catch (err) {
     console.log(err);
   }
-
-  // if (req.method === "GET") {
-  //   const users = await prisma.exercise.findMany();
-  //   res.status(200).json(users);
-  // } else {
-  //   res.status(405).json({ message: "Method Not Allowed" });
-  // }
 }
-
-// export async function createInvoice(prevState: State, formData: FormData) {
-//   const validatedFields = CreateInvoice.safeParse({
-//     customerId: formData.get("customerId"),
-//     amount: formData.get("amount"),
-//     status: formData.get("status"),
-//   });
-
-//   if (!validatedFields.success) {
-//     return {
-//       errors: validatedFields.error.flatten().fieldErrors,
-//       message: "Missing Fields. Failed to Create Invoice.",
-//     };
-//   }
-
-//   const { customerId, amount, status } = validatedFields.data;
-//   const amountInCents = amount * 100;
-//   const date = new Date().toISOString().split("T")[0];
-//   try {
-//     await sql`
-//   INSERT INTO invoices (customer_id, amount, status, date)
-//   VALUES (${customerId}, ${amountInCents}, ${status}, ${date})`;
-//   } catch (err) {
-//     return { message: "Database Error: Failed to Create Invoice." };
-//   }
-//   revalidatePath("/dashboard/invoices");
-//   redirect("/dashboard/invoices");
-// }

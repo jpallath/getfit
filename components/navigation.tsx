@@ -10,7 +10,7 @@ const NavItems = () => {
       name: "History",
       href: "/history",
     },
-    { name: "Exercises", href: "/exercises" },
+    { name: "Routines", href: "/routines" },
     { name: "Me RN", href: "/mern" },
   ];
 

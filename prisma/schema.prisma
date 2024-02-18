@@ -11,26 +11,39 @@ datasource db {
 }
 
 model Exercise {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  name        String   @db.VarChar(255)
-  description String
-  video       String
-  image       String
+  id               String             @id @default(uuid())
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  name             String             @db.VarChar(255)
+  description      String
+  video            String
+  image            String
+  RoutineExercises RoutineExercises[]
+
+  @@map(name: "Exercises")
 }
 
-// model Profile {
-//   id     Int     @id @default(autoincrement())
-//   bio    String?
-//   user   User    @relation(fields: [userId], references: [id])
-//   userId Int     @unique
-// }
+model Routine {
+  id               String             @id @default(uuid())
+  name             String             @db.VarChar(255)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  RoutineExercises RoutineExercises[]
 
-// model User {
-//   id      Int      @id @default(autoincrement())
-//   email   String   @unique
-//   name    String?
-//   posts   Post[]
-//   profile Profile?
-// }
+  @@map(name: "Routines")
+}
+
+model RoutineExercises {
+  routine_id  String
+  exercise_id String
+  sets        Int
+  reps        Int
+
+  routine  Routine  @relation(fields: [routine_id], references: [id])
+  exercise Exercise @relation(fields: [exercise_id], references: [id])
+
+  @@id([routine_id, exercise_id])
+  @@index([routine_id], name: "RoutineIDIndex")
+  @@index([exercise_id], name: "ExerciseIDIndex")
+  @@map(name: "RoutineExercises")
+}
