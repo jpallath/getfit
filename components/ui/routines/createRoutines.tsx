@@ -12,7 +12,7 @@ type CreateRoutineFormProps = {
 };
 
 export const CreateRoutineForm = ({ exercises }: CreateRoutineFormProps) => {
-  const [selectedValue, setSelected] = useState("select an option");
+  const [selectedValue, setSelected] = useState("Select an option");
   const [days, setChecked] = useState([
     { text: "SU", isChecked: false },
     { text: "MO", isChecked: false },
@@ -29,8 +29,20 @@ export const CreateRoutineForm = ({ exercises }: CreateRoutineFormProps) => {
     setChecked(newState);
   };
 
+  const setRoutine = () => {
+    console.log(selectedValue);
+    console.log(days);
+  };
+
   return (
-    <form>
+    <form action={setRoutine}>
+      <Label>Routine Name</Label>
+      <Input
+        className="border-foreground"
+        name={"routineName"}
+        id={"routineName"}
+        placeholder="Routine 1"
+      />
       <Label>Exercise</Label>
       <Select
         selectedValue={selectedValue}
@@ -57,7 +69,7 @@ export const CreateRoutineForm = ({ exercises }: CreateRoutineFormProps) => {
           />
         </div>
       </div>
-      <div className="flex justify-center p-4">
+      <div className="flex justify-center p-4 gap-2">
         {days.map((day, index) => (
           <CheckBox
             text={day.text}

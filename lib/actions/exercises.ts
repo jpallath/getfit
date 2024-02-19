@@ -35,8 +35,7 @@ export async function createExercise(formData: FormData) {
   try {
     const { name, description, video, image } = validatedFields.data;
     const data = { name, description, video, image };
-    const newExercise = await prisma.exercise.create({ data });
-    console.log("tes");
+    return await prisma.exercise.create({ data });
   } catch (err) {
     console.log(err);
   }
