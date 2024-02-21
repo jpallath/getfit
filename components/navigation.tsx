@@ -6,12 +6,8 @@ const NavItems = () => {
   const pathname = usePathname();
   const links = [
     { name: "Today", href: "/today" },
-    {
-      name: "History",
-      href: "/history",
-    },
     { name: "Routines", href: "/routines" },
-    { name: "Me RN", href: "/mern" },
+    { name: "Settings", href: "/mern" },
   ];
 
   return (

@@ -7,7 +7,7 @@ export default function Page() {
         <div>Current Weight: XX lbs </div>
         <div>Goal Weight: YY lbs </div>
         <div>Next Weigh In: Monday</div>
-        <FetchExercise />
+        {/* <FetchExercise /> */}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { z } from "zod";
 const prisma = new PrismaClient();
 
 const ExerciseSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   createdAt: z.string(),
   updatedAt: z.string(),
   name: z.string(),

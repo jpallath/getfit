@@ -1,17 +1,10 @@
 "use client";
 import { fetchExercise } from "@/lib/data/exercises";
 import Link from "next/link";
+import { Exercise } from "@prisma/client";
 
 export type ExerciseProps = {
   exercise: Exercise;
-};
-
-export type Exercise = {
-  id: string;
-  description: string;
-  name: string;
-  video: string;
-  image: string;
 };
 
 export const FetchExercise = async () => {
