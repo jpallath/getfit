@@ -19,39 +19,43 @@ model User {
 }
 
 model Exercise {
-  id               String             @id @default(uuid())
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  name             String             @db.VarChar(255)
+  id               String            @id @default(uuid())
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  name             String            @db.VarChar(255)
   description      String
   video            String
   image            String
-  RoutineExercises RoutineExercises[]
+  RoutineExercises RoutineExercise[]
   UserExercise     UserExercise[]
 
   @@map(name: "Exercises")
 }
 
 model Routine {
-  id               String             @id @default(uuid())
-  name             String             @db.VarChar(255)
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  RoutineExercises RoutineExercises[]
+  id               String            @id @default(uuid())
+  name             String            @db.VarChar(255)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  RoutineExercises RoutineExercise[]
 
   @@map(name: "Routines")
 }
 
 model UserCalorie {
-  id       String @id @default(uuid())
-  user     String
-  calories Float
+  id        String   @id @default(uuid())
+  user      String
+  calories  Float
+  createdAt DateTime
+  updatedAt DateTime
 }
 
 model UserWeight {
-  id     String @id @default(uuid())
-  user   String
-  weight Float
+  id        String   @id @default(uuid())
+  user      String
+  weight    Float
+  createdAt DateTime
+  updatedAt DateTime
 }
 
 model UserExercise {
@@ -62,6 +66,7 @@ model UserExercise {
   reps       Int
   weight     Float
   createdAt  DateTime @default(now())
+  updatedAt  DateTime
 
   user     User     @relation(fields: [userId], references: [id])
   exercise Exercise @relation(fields: [exerciseId], references: [id])
@@ -70,7 +75,7 @@ model UserExercise {
   @@index([exerciseId], name: "ExerciseIndex")
 }
 
-model RoutineExercises {
+model RoutineExercise {
   routine_id  String
   exercise_id String
   day_id      String
@@ -79,14 +84,17 @@ model RoutineExercises {
 
   routine  Routine  @relation(fields: [routine_id], references: [id])
   exercise Exercise @relation(fields: [exercise_id], references: [id])
+  day      Day      @relation(fields: [day_id], references: [id])
 
-  @@id([routine_id, exercise_id])
+  @@id([routine_id, exercise_id, day_id])
   @@index([routine_id], name: "RoutineIDIndex")
   @@index([exercise_id], name: "ExerciseIDIndex")
-  @@map(name: "RoutineExercises")
+  @@index([day_id], name: "DayIDIndex")
+  @@map(name: "RoutineExercise")
 }
 
 model Day {
-  id   String @id @default(uuid())
-  name String
+  id               String            @id @default(uuid())
+  name             String
+  RoutineExercises RoutineExercise[]
 }

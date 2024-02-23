@@ -1,5 +1,5 @@
 "use server";
-import { PrismaClient } from "@prisma/client";
+import { Exercise, PrismaClient } from "@prisma/client";
 import { z } from "zod";
 const prisma = new PrismaClient();
 
@@ -39,4 +39,16 @@ export async function createExercise(formData: FormData) {
   } catch (err) {
     console.log(err);
   }
+}
+
+export async function updateExercise(exerciseData: Exercise) {
+  const { id, name, description, video, image } = exerciseData;
+  return await prisma.exercise.update({
+    where: { id },
+    data: { name, description, video, image },
+  });
+}
+
+export async function deleteExercise(exerciseId: string) {
+  return await prisma.exercise.delete({ where: { id: exerciseId } });
 }
