@@ -1,23 +1,55 @@
-"use server";
-import { PrismaClient } from "@prisma/client";
-import { z } from "zod";
+import {
+  PrismaClient,
+  Routine,
+  Exercise,
+  RoutineExercises,
+} from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const RoutineExersiceSchema = z.object({});
+export type ExerciseObject = {
+  id: string;
+  name: string;
+  reps: number;
+  sets: number;
+};
 
-const DaySchema = z.object({
-  text: z.string(),
-  isChecked: z.boolean(),
-});
+export type RoutineObject = {
+  routineName: string;
+  dayId: string;
+  exercises: ExerciseObject[];
+};
 
-const RoutineSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  days: z.array(DaySchema),
-  
-});
+export const createRoutine = async (routineObject: RoutineObject) => {
+  const { routineName, exercises, dayId } = routineObject;
+  const data = {
+    name: routineName,
+  };
+  let routine: Routine = {
+    id: "",
+    name: "",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
 
-export async function createRoutine(routineForm: {}) {
-  console.log(routineForm);
-}
+  try {
+    routine = await prisma.routine.create({ data });
+  } catch (err) {
+    console.log(err);
+  }
+
+  if (routine && routine.id) {
+    try {
+      for (const exercise of exercises) {
+        const routineExercisedata = {
+          routine_id: routine.id,
+          exercise_id: exercise.id,
+          day_id: dayId,
+          reps: exercise.reps,
+          sets: exercise.sets,
+        };
+        await prisma.routineExercises.create({ data: routineExercisedata });
+      }
+    } catch (err) {}
+  }
+};

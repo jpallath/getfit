@@ -1,55 +1,8 @@
-import {
-  PrismaClient,
-  Routine,
-  Exercise,
-  RoutineExercises,
-} from "@prisma/client";
+"use server";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export type ExerciseObject = {
-  id: string;
-  name: string;
-  reps: number;
-  sets: number;
-};
-
-export type RoutineObject = {
-  routineName: string;
-  dayId: string;
-  exercises: ExerciseObject[];
-};
-
-export const createRoutine = async (routineObject: RoutineObject) => {
-  const { routineName, exercises, dayId } = routineObject;
-  const data = {
-    name: routineName,
-  };
-  let routine: Routine = {
-    id: "",
-    name: "",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-
-  try {
-    routine = await prisma.routine.create({ data });
-  } catch (err) {
-    console.log(err);
-  }
-
-  if (routine && routine.id) {
-    try {
-      for (const exercise of exercises) {
-        const routineExercisedata = {
-          routine_id: routine.id,
-          exercise_id: exercise.id,
-          day_id: dayId,
-          reps: exercise.reps,
-          sets: exercise.sets,
-        };
-        await prisma.routineExercises.create({ data: routineExercisedata });
-      }
-    } catch (err) {}
-  }
+export const getRoutine = async (routineId: string) => {
+  return await prisma.routine.findFirst({ where: { id: routineId } });
 };
