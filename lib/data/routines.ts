@@ -16,11 +16,12 @@ export type ExerciseObject = {
 
 export type RoutineObject = {
   routineName: string;
+  dayId: string;
   exercises: ExerciseObject[];
 };
 
 export const createRoutine = async (routineObject: RoutineObject) => {
-  const { routineName, exercises } = routineObject;
+  const { routineName, exercises, dayId } = routineObject;
   const data = {
     name: routineName,
   };
@@ -43,6 +44,7 @@ export const createRoutine = async (routineObject: RoutineObject) => {
         const routineExercisedata = {
           routine_id: routine.id,
           exercise_id: exercise.id,
+          day_id: dayId,
           reps: exercise.reps,
           sets: exercise.sets,
         };

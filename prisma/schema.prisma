@@ -73,6 +73,7 @@ model UserExercise {
 model RoutineExercises {
   routine_id  String
   exercise_id String
+  day_id      String
   sets        Int
   reps        Int
 
